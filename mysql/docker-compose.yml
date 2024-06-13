@@ -1,0 +1,20 @@
+version: '3.2'
+
+networks:
+ bancanet:
+  external: true
+
+services:
+ mysql-banca:
+  image: mysql-banca
+  container_name: mysql-banca
+  hostname: mysql-banca
+  restart: always
+  ports:
+   - "3307:3306"
+  networks:
+   - bancanet
+  environment:
+   - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+  volumes:
+   - ./varlibmysql:/docker-entrypoint-initdb.d

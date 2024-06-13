@@ -1,0 +1,21 @@
+version: '3.2'
+
+networks:
+  bancanet:
+    external: true
+
+services:
+ backend-clientes:
+  image: backend-clientes
+  container_name: backend-clientes
+  hostname: backend-clientes
+  restart: always
+  ports:
+   - "8081:8081"
+  networks:
+   - bancanet
+  environment:
+   - DB_PORT=${DB_PORT}
+   - DB_HOSTNAME=${DB_HOSTNAME}
+   - DB_USER=${DB_USER}
+   - DB_PASSWORD=${DB_PASSWORD}

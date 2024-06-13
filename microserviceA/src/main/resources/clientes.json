@@ -1,0 +1,32 @@
+[
+    {
+        "nombre": "Juan Salinas",
+        "genero": "M",
+        "edad": 20,
+        "identificacion": "0171",
+        "direccion": "Quito",
+        "telefono": "+593",
+        "clienteId": 1,
+        "password": "aYZxaYZxaYZx.",
+        "estadoCliente": {
+            "estadoClienteId": 1,
+            "nombre": "ACTIVO",
+            "activo": true
+        }
+    },
+    {
+        "nombre": "Juana Zambrano",
+        "genero": "F",
+        "edad": 22,
+        "identificacion": "0175",
+        "direccion": "Bogotá",
+        "telefono": "+57",
+        "clienteId": 2,
+        "password": "aYZxaYZx-Zx-ZxaY.",
+        "estadoCliente": {
+            "estadoClienteId": 1,
+            "nombre": "ACTIVO",
+            "activo": true
+        }
+    }
+]

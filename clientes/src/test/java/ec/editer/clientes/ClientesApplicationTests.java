@@ -25,7 +25,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 @SpringBootTest
-class MicroserviceAApplicationTests {
+class ClientesApplicationTests {
     
     @Autowired
     private ResourceLoader resourceLoader;

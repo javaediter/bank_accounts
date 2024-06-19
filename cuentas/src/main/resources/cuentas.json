@@ -1,0 +1,32 @@
+[
+    {
+            "cuentaId": 1,
+            "clienteId": 1,
+            "numero": "001",
+            "saldoInicial": 200.0,
+            "saldoDisponible": 190.0,
+            "tipoCuenta": {
+                    "tipoCuentaId": 1,
+                    "nombre": "Ahorros"
+            },
+            "estadoCuenta": {
+                    "estadoCuentaId": 1,
+                    "valor": true
+            }
+    },
+    {
+            "cuentaId": 2,
+            "clienteId": 1,
+            "numero": "001",
+            "saldoInicial": 100.0,
+            "saldoDisponible": 100.0,
+            "tipoCuenta": {
+                    "tipoCuentaId": 2,
+                    "nombre": "Corriente"
+            },
+            "estadoCuenta": {
+                    "estadoCuentaId": 1,
+                    "valor": true
+            }
+    }
+]

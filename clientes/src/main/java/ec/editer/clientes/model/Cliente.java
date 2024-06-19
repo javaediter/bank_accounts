@@ -16,11 +16,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  *
  * @author Edison Teran
  */
+@ToString
 @Data
 @Entity
 @Table(name = "clientes", uniqueConstraints = {
@@ -38,4 +40,5 @@ public class Cliente extends Persona {
     @JoinColumn(name = "estado_cliente_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private EstadoCliente estadoCliente;
+   
 }

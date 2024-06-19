@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Edison Teran
  */
 @Configuration
-public class EncriptadorConfiguration {
+public class BeansConfiguration {
     
     @Bean
     public EncriptadorBasico getEncriptadorBasico(){

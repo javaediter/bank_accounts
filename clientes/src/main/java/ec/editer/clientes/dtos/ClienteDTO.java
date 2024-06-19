@@ -12,7 +12,7 @@ import lombok.Data;
  * @author Edison Teran
  */
 @Data
-public class ClienteDTO extends PersonaDTO{
+public final class ClienteDTO extends PersonaDTO{
     private Integer clienteId;
     private String password;
     private EstadoClienteDTO estadoCliente;

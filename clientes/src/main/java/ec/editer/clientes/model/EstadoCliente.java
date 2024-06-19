@@ -11,11 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  *
  * @author Edison Teran
  */
+@ToString
 @Data
 @Entity
 @Table(name = "estado_clientes")

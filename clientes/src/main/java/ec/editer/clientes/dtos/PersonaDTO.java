@@ -5,6 +5,7 @@
  */
 package ec.editer.clientes.dtos;
 
+import java.io.Serializable;
 import lombok.Data;
 
 /**
@@ -12,11 +13,11 @@ import lombok.Data;
  * @author Edison Teran
  */
 @Data
-public abstract class PersonaDTO {
-    private String nombre;
-    private String genero;
-    private Integer edad;
-    private String identificacion;
-    private String direccion;
-    private String telefono;
+public abstract class PersonaDTO implements Serializable{
+    protected String nombre;
+    protected String genero;
+    protected Integer edad;
+    protected String identificacion;
+    protected String direccion;
+    protected String telefono;
 }

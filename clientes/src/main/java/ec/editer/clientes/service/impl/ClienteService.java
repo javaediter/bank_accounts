@@ -41,7 +41,7 @@ public class ClienteService implements IClienteService {
     @Override
     public List<ClienteDTO> obtenerClientes() {
         List<ClienteDTO> clientes = new ArrayList<>();
-        clienteRepository.findAll().forEach(x -> {
+        clienteRepository.findAll().iterator().forEachRemaining(x -> {
             ClienteDTO clienteDTO = new ClienteDTO();
             BeanUtils.copyProperties(x, clienteDTO);
             clienteDTO.setEstadoCliente(new EstadoClienteDTO());
@@ -61,7 +61,6 @@ public class ClienteService implements IClienteService {
 
         cliente = clienteRepository.save(cliente);
         clienteDTO.setClienteId(cliente.getClienteId());
-        //BeanUtils.copyProperties(optEstadoCliente.get(), clienteDTO.getEstadoCliente());
         return clienteDTO;
     }
 
@@ -85,10 +84,10 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public Optional<ClienteDTO> actualizacionDataParcial(ClienteDataParcial clienteDataParcial) {
+    public Optional<ClienteDTO> actualizacionDataParcial(ClienteDataParcial clienteDataParcial) {        
         Optional<Cliente> cliente = clienteRepository.findById(clienteDataParcial.getClienteId());
         if (clienteDataParcial.getDireccion() == null || clienteDataParcial.getDireccion().isEmpty()) {
-            clienteDataParcial.setDireccion(cliente.get().getDireccion());
+            clienteDataParcial.setDireccion(cliente.get().getNombre());
         }
         if (clienteDataParcial.getTelefono() == null || clienteDataParcial.getTelefono().isEmpty()) {
             clienteDataParcial.setTelefono(cliente.get().getTelefono());

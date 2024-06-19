@@ -16,10 +16,10 @@ import lombok.Data;
 @MappedSuperclass
 @Data
 public abstract class Persona implements Serializable{   
-    private String nombre;
-    private String genero;
-    private Integer edad;
-    private String identificacion;
-    private String direccion;
-    private String telefono;
+    protected String nombre;
+    protected String genero;
+    protected Integer edad;
+    protected String identificacion;
+    protected String direccion;
+    protected String telefono;
 }

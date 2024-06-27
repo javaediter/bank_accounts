@@ -5,8 +5,8 @@
  */
 package ec.editer.cuentas.service.impl;
 
-import ec.editer.cuentas.dtos.CuentaDTO;
-import ec.editer.cuentas.dtos.MovimientoDTO;
+import ec.editer.commons.cuentas.dtos.CuentaDTO;
+import ec.editer.commons.cuentas.dtos.MovimientoDTO;
 import ec.editer.cuentas.model.Cuenta;
 import ec.editer.cuentas.model.Movimiento;
 import ec.editer.cuentas.model.TipoMovimiento;

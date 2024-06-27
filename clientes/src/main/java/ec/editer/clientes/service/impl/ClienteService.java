@@ -5,15 +5,15 @@
  */
 package ec.editer.clientes.service.impl;
 
-import ec.editer.clientes.dtos.ClienteDTO;
-import ec.editer.clientes.dtos.EstadoClienteDTO;
 import ec.editer.clientes.model.Cliente;
-import ec.editer.clientes.dtos.ClienteDataParcial;
 import ec.editer.clientes.model.EstadoCliente;
 import ec.editer.clientes.repository.ClienteRepository;
 import ec.editer.clientes.repository.EstadoClienteRepository;
 import ec.editer.clientes.service.IClienteService;
 import ec.editer.clientes.utils.EncriptadorBasico;
+import ec.editer.commons.clientes.dtos.ClienteDTO;
+import ec.editer.commons.clientes.dtos.ClienteDataParcial;
+import ec.editer.commons.clientes.dtos.EstadoClienteDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,10 +42,22 @@ public class ClienteService implements IClienteService {
     public List<ClienteDTO> obtenerClientes() {
         List<ClienteDTO> clientes = new ArrayList<>();
         clienteRepository.findAll().iterator().forEachRemaining(x -> {
-            ClienteDTO clienteDTO = new ClienteDTO();
-            BeanUtils.copyProperties(x, clienteDTO);
-            clienteDTO.setEstadoCliente(new EstadoClienteDTO());
-            BeanUtils.copyProperties(x.getEstadoCliente(), clienteDTO.getEstadoCliente());
+            EstadoClienteDTO estadoClienteDTO = EstadoClienteDTO.builder()
+                    .estadoClienteId(x.getEstadoCliente().getEstadoClienteId())
+                    .valor(x.getEstadoCliente().isValor())
+                    .build();
+            
+            ClienteDTO clienteDTO = ClienteDTO.builder()
+                    .clienteId(x.getClienteId())
+                    .direccion(x.getDireccion())
+                    .edad(x.getEdad())
+                    .genero(x.getGenero())
+                    .identificacion(x.getIdentificacion())
+                    .nombre(x.getNombre())
+                    .password(x.getPassword())
+                    .telefono(x.getTelefono())
+                    .estadoCliente(estadoClienteDTO)
+                    .build();
             clientes.add(clienteDTO);
         });
         return clientes;
@@ -67,15 +79,30 @@ public class ClienteService implements IClienteService {
     @Override
     public Optional<ClienteDTO> obtenerClientePorId(Integer clienteId) {
         Optional<Cliente> opt = clienteRepository.findById(clienteId);
-        ClienteDTO clienteDTO = new ClienteDTO();
-
-        opt.ifPresent(x -> {
-            BeanUtils.copyProperties(x, clienteDTO);
-            clienteDTO.setEstadoCliente(new EstadoClienteDTO());
-            BeanUtils.copyProperties(x.getEstadoCliente(), clienteDTO.getEstadoCliente());
-        });
-
-        return opt.isPresent() ? Optional.of(clienteDTO) : Optional.empty();
+        
+        if(opt.isPresent()){
+            Cliente x = opt.get();
+            EstadoClienteDTO estadoClienteDTO = EstadoClienteDTO.builder()
+                    .estadoClienteId(x.getEstadoCliente().getEstadoClienteId())
+                    .valor(x.getEstadoCliente().isValor())
+                    .build();
+            
+            ClienteDTO clienteDTO = ClienteDTO.builder()
+                    .clienteId(x.getClienteId())
+                    .direccion(x.getDireccion())
+                    .edad(x.getEdad())
+                    .genero(x.getGenero())
+                    .identificacion(x.getIdentificacion())
+                    .nombre(x.getNombre())
+                    .password(x.getPassword())
+                    .telefono(x.getTelefono())
+                    .estadoCliente(estadoClienteDTO)
+                    .build();
+            
+            return Optional.of(clienteDTO);
+        }else{
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -100,6 +127,7 @@ public class ClienteService implements IClienteService {
         }else{
             clienteDataParcial.setNuevaPassword(encriptadorBasico.encriptador(clienteDataParcial.getNuevaPassword()));
         }
+        
         cliente.ifPresent(x -> {
             x.setEstadoCliente(x.getEstadoCliente());
             x.setDireccion(clienteDataParcial.getDireccion());
@@ -115,10 +143,25 @@ public class ClienteService implements IClienteService {
         });
         
         clienteRepository.save(cliente.get());
-        ClienteDTO clienteDTO = new ClienteDTO();
-        BeanUtils.copyProperties(cliente.get(), clienteDTO);
-        clienteDTO.setEstadoCliente(new EstadoClienteDTO());
-        clienteDTO.getEstadoCliente().setEstadoClienteId(clienteDataParcial.getEstadoId());
+        
+        Cliente x = cliente.get();
+            EstadoClienteDTO estadoClienteDTO = EstadoClienteDTO.builder()
+                    .estadoClienteId(x.getEstadoCliente().getEstadoClienteId())
+                    .valor(x.getEstadoCliente().isValor())
+                    .build();
+            
+            ClienteDTO clienteDTO = ClienteDTO.builder()
+                    .clienteId(x.getClienteId())
+                    .direccion(x.getDireccion())
+                    .edad(x.getEdad())
+                    .genero(x.getGenero())
+                    .identificacion(x.getIdentificacion())
+                    .nombre(x.getNombre())
+                    .password(x.getPassword())
+                    .telefono(x.getTelefono())
+                    .estadoCliente(estadoClienteDTO)
+                    .build();
+            
         return Optional.of(clienteDTO);
     }
 }

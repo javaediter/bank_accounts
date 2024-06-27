@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import ec.editer.clientes.configuration.BeansConfiguration;
-import ec.editer.clientes.dtos.ClienteDTO;
-import ec.editer.clientes.dtos.EstadoClienteDTO;
 import ec.editer.clientes.model.Cliente;
 import ec.editer.clientes.model.EstadoCliente;
 import ec.editer.clientes.repository.ClienteRepository;
@@ -13,6 +11,8 @@ import ec.editer.clientes.repository.EstadoClienteRepository;
 import ec.editer.clientes.service.IClienteService;
 import ec.editer.clientes.service.impl.ClienteService;
 import ec.editer.clientes.utils.EncriptadorBasico;
+import ec.editer.commons.clientes.dtos.ClienteDTO;
+import ec.editer.commons.clientes.dtos.EstadoClienteDTO;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -94,22 +94,21 @@ class ClientesApplicationTests {
     @Test
     public void registrarClienteTest(){
         //given
-        EstadoClienteDTO estadoDTO = new EstadoClienteDTO();
-        estadoDTO.setEstadoClienteId(1);
-        estadoDTO.setValor(true);
+        EstadoClienteDTO estadoDTO = EstadoClienteDTO.builder().estadoClienteId(1).valor(true).build();
         
-        ClienteDTO dto = new ClienteDTO();
-        dto.setClienteId(3);
-        dto.setEdad(28);
-        dto.setGenero("F");
-        dto.setNombre("Guest");
-        dto.setIdentificacion("911");
-        dto.setPassword("abc123");
-        dto.setDireccion("Ahi");
-        dto.setTelefono("+593");
-        
-        dto.setEstadoCliente(estadoDTO);
-        
+        ClienteDTO dto = ClienteDTO.builder()
+                .clienteId(3)
+                .direccion("")
+                .edad(28)
+                .genero("F")
+                .identificacion("911")
+                .nombre("Guest")
+                .password("abc123")
+                .direccion("Ahi")
+                .telefono("+593")
+                .estadoCliente(estadoDTO)
+                .build();
+                
         Cliente cliente = new Cliente();
         EstadoCliente estadoCliente = new EstadoCliente();
         

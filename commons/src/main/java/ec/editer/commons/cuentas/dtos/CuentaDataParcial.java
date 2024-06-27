@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.editer.clientes.dtos;
+package ec.editer.commons.cuentas.dtos;
 
 import lombok.Data;
 
@@ -12,8 +12,8 @@ import lombok.Data;
  * @author Edison Teran
  */
 @Data
-public final class ClienteDTO extends PersonaDTO{
-    private Integer clienteId;
-    private String password;
-    private EstadoClienteDTO estadoCliente;
+public class CuentaDataParcial {
+    private String numeroCuenta;
+    private Integer tipoCuentaId;
+    private Integer estadoCuentaId;
 }

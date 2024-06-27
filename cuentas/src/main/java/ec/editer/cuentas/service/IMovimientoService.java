@@ -5,7 +5,7 @@
  */
 package ec.editer.cuentas.service;
 
-import ec.editer.cuentas.dtos.MovimientoDTO;
+import ec.editer.commons.cuentas.dtos.MovimientoDTO;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

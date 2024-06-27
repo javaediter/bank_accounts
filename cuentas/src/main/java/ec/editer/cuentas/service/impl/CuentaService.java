@@ -5,10 +5,10 @@
  */
 package ec.editer.cuentas.service.impl;
 
-import ec.editer.cuentas.dtos.CuentaDTO;
-import ec.editer.cuentas.dtos.CuentaDataParcial;
-import ec.editer.cuentas.dtos.EstadoCuentaDTO;
-import ec.editer.cuentas.dtos.TipoCuentaDTO;
+import ec.editer.commons.cuentas.dtos.CuentaDTO;
+import ec.editer.commons.cuentas.dtos.CuentaDataParcial;
+import ec.editer.commons.cuentas.dtos.EstadoCuentaDTO;
+import ec.editer.commons.cuentas.dtos.TipoCuentaDTO;
 import ec.editer.cuentas.model.Cuenta;
 import ec.editer.cuentas.model.EstadoCuenta;
 import ec.editer.cuentas.model.TipoCuenta;

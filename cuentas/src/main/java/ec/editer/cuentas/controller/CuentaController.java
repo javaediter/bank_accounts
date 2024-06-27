@@ -5,8 +5,8 @@
  */
 package ec.editer.cuentas.controller;
 
-import ec.editer.cuentas.dtos.CuentaDTO;
-import ec.editer.cuentas.dtos.CuentaDataParcial;
+import ec.editer.commons.cuentas.dtos.CuentaDTO;
+import ec.editer.commons.cuentas.dtos.CuentaDataParcial;
 import ec.editer.cuentas.service.ICuentaService;
 import java.util.List;
 import java.util.Optional;

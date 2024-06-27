@@ -5,8 +5,8 @@
  */
 package ec.editer.clientes.service;
 
-import ec.editer.clientes.dtos.ClienteDTO;
-import ec.editer.clientes.dtos.ClienteDataParcial;
+import ec.editer.commons.clientes.dtos.ClienteDTO;
+import ec.editer.commons.clientes.dtos.ClienteDataParcial;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.dao.DataIntegrityViolationException;

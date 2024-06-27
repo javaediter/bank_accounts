@@ -5,7 +5,7 @@
  */
 package ec.editer.cuentas.controller;
 
-import ec.editer.cuentas.dtos.MovimientoDTO;
+import ec.editer.commons.cuentas.dtos.MovimientoDTO;
 import ec.editer.cuentas.service.ICuentaService;
 import ec.editer.cuentas.service.IMovimientoService;
 import java.math.BigDecimal;

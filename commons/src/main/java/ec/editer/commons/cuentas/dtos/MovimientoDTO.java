@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.editer.cuentas.dtos;
+package ec.editer.commons.cuentas.dtos;
 
 import java.math.BigDecimal;
 import java.util.Date;

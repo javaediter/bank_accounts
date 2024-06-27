@@ -5,22 +5,23 @@
  */
 package ec.editer.clientes.controller;
 
-import ec.editer.clientes.dtos.ClienteDTO;
-import ec.editer.clientes.dtos.ClienteDataParcial;
 import ec.editer.clientes.service.IClienteService;
+import ec.editer.commons.clientes.dtos.ClienteDTO;
+import ec.editer.commons.clientes.dtos.ClienteDataParcial;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/clientes")
-@CrossOrigin(origins = "/**")
+@CrossOrigin(origins = "*/*")
 public class ClienteController {
     
     @Autowired
@@ -44,9 +45,10 @@ public class ClienteController {
         return new ResponseEntity<>(clienteService.obtenerClientes(), HttpStatus.OK);
     }
     
-    @PostMapping("/registrar")
+    @PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registrarCliente(@RequestBody ClienteDTO clienteDTO){
         log.info("registrarCliente");
+        log.info(" clienteDTO {}", clienteDTO);
         try{
             return new ResponseEntity<>(clienteService.registrarCliente(clienteDTO), HttpStatus.CREATED);
         }catch(DataIntegrityViolationException e){
@@ -55,7 +57,7 @@ public class ClienteController {
         }
     }
     
-    @PatchMapping("/actualizar")
+    @PutMapping(value = "/actualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> actualizacionParcialCliente(@RequestBody ClienteDataParcial clienteDataParcial){
         log.info("actualizacionParcialCliente");
         Optional<ClienteDTO> opt = clienteService.obtenerClientePorId(clienteDataParcial.getClienteId());
@@ -66,7 +68,7 @@ public class ClienteController {
         }       
     }
     
-    @GetMapping("/cliente/{id}")
+    @GetMapping(value = "/cliente/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> obtenerClientePorId(@PathVariable("id") Integer clienteId){
         log.info("obtenerClientePorId");
         Optional<ClienteDTO> opt = clienteService.obtenerClientePorId(clienteId);

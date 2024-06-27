@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.editer.clientes.dtos;
+package ec.editer.commons.cuentas.dtos;
 
 import lombok.Data;
 
@@ -12,11 +12,7 @@ import lombok.Data;
  * @author Edison Teran
  */
 @Data
-public class ClienteDataParcial {
-    private Integer clienteId;
-    private String direccion;
-    private String telefono;
-    private Integer estadoId;
-    private Integer edad;
-    private String nuevaPassword;
+public class TipoCuentaDTO {
+    private Integer tipoCuentaId;
+    private String nombre;
 }

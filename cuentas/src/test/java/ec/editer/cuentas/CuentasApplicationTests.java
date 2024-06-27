@@ -3,7 +3,7 @@ package ec.editer.cuentas;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import ec.editer.cuentas.dtos.CuentaDTO;
+import ec.editer.commons.cuentas.dtos.CuentaDTO;
 import ec.editer.cuentas.model.Cuenta;
 import ec.editer.cuentas.repository.CuentaRepository;
 import ec.editer.cuentas.repository.EstadoCuentaRepository;

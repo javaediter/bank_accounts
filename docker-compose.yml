@@ -1,0 +1,62 @@
+#docker-compose:
+version: '3.2'
+
+services:
+    mysql-banca:
+        image: imgmysql
+        container_name: mysql-banca
+        hostname: mysql-banca
+        restart: always
+        ports:
+            - "3307:3306"
+        networks:
+            - bancanet
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+        volumes:
+            - ./mysql/varlibmysql:/docker-entrypoint-initdb.d
+
+    msclientes:
+        image: imgclientes
+        container_name: msclientes
+        hostname: msclientes
+        networks:
+            - bancanet
+        ports:
+            - "8081:8081"
+        environment:
+            - DB_HOSTNAME=mysql-banca
+            - DB_PORT=${DB_PORT}
+            - DB_USER=${DB_USER}
+            - DB_PASSWORD=${DB_PASSWORD}
+        restart: always
+        links:
+            - mysql-banca
+        depends_on:
+            - mysql-banca
+    
+    mscuentas:
+        image: imgcuentas
+        container_name: mscuentas
+        hostname: mscuentas
+        networks:
+            - bancanet
+        ports:
+            - "8082:8082"
+        environment:
+            - DB_HOSTNAME=mysql-banca
+            - DB_PORT=${DB_PORT}
+            - DB_USER=${DB_USER}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - API_CLIENTES=http://msclientes:8081/api/clientes
+        restart: always
+        links:
+            - msclientes
+            - mysql-banca
+        depends_on:
+            - mysql-banca
+            - msclientes
+
+networks:
+    bancanet:
+        external: true

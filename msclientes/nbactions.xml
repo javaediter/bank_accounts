@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>rebuild</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <Env.DB_HOSTNAME>localhost</Env.DB_HOSTNAME>
+                <Env.DB_PORT>3306</Env.DB_PORT>
+                <Env.DB_USER>root</Env.DB_USER>
+                <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+            </properties>
+        </action>
+        <action>
+            <actionName>run</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-classes</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
+            </goals>
+            <properties>
+                <exec.args>-classpath %classpath ${packageClassName}</exec.args>
+                <exec.executable>java</exec.executable>
+                <Env.DB_HOSTNAME>localhost</Env.DB_HOSTNAME>
+                <Env.DB_PORT>3306</Env.DB_PORT>
+                <Env.DB_USER>root</Env.DB_USER>
+                <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+            </properties>
+        </action>
+        <action>
+            <actionName>debug</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-classes</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
+            </goals>
+            <properties>
+                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath ${packageClassName}</exec.args>
+                <exec.executable>java</exec.executable>
+                <jpda.listen>true</jpda.listen>
+                <Env.DB_HOSTNAME>localhost</Env.DB_HOSTNAME>
+                <Env.DB_PORT>3306</Env.DB_PORT>
+                <Env.DB_USER>root</Env.DB_USER>
+                <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+            </properties>
+        </action>
+    </actions>

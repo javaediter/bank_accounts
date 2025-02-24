@@ -6,7 +6,8 @@
 package ec.editer.mscuentas.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ec.editer.mscuentas.model.Movimiento;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.Data;
@@ -17,12 +18,27 @@ import lombok.Data;
  */
 @Data
 public class CuentaDTO {
+    @NotNull
     private Integer cuentaId;
+    
+    @NotNull
     private Integer clienteId;
+    
+    @NotNull
     private String nombreCliente;
+    
+    @NotNull(message = "Numero es requerido")
+    @NotBlank(message = "Numero es requerido")
     private String numero;
+    
+    @NotNull
     private BigDecimal saldoInicial;
+    
+    @NotNull(message = "Tipo Cuenta es requerido")
+    @NotBlank(message = "Tipo Cuenta es requerido")
     private String tipoCuenta;
+    
+    @NotNull
     private boolean estado;
     
     @JsonIgnore

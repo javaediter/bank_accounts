@@ -7,6 +7,7 @@ package ec.editer.msclientes.controller;
 
 import ec.editer.msclientes.dtos.ClienteDTO;
 import ec.editer.msclientes.service.IClienteService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class ClienteController {
     }
     
     @PostMapping(value = "/registrar")
-    public ResponseEntity<?> registrarCliente(@RequestBody ClienteDTO clienteDTO){
+    public ResponseEntity<?> registrarCliente(@Valid @RequestBody ClienteDTO clienteDTO){
         log.info("registrarCliente");
         log.info(" clienteDTO {}", clienteDTO);
         try{
@@ -56,7 +57,7 @@ public class ClienteController {
     }
     
     @PutMapping(value = "/actualizar")
-    public ResponseEntity<?> actualizacionCliente(@RequestBody ClienteDTO clienteDTO){
+    public ResponseEntity<?> actualizacionCliente(@Valid @RequestBody ClienteDTO clienteDTO){
         log.info("actualizacionCliente");
         Optional<ClienteDTO> opt = clienteService.obtenerClientePorId(clienteDTO.getClienteId());
         if(opt.isPresent()){

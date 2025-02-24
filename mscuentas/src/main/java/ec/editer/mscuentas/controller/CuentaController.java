@@ -7,6 +7,7 @@ package ec.editer.mscuentas.controller;
 
 import ec.editer.mscuentas.dtos.CuentaDTO;
 import ec.editer.mscuentas.service.ICuentaService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,7 +36,7 @@ public class CuentaController {
     private ICuentaService cuentaService;
     
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarCuenta(@RequestBody CuentaDTO cuentaDTO){
+    public ResponseEntity<?> registrarCuenta(@Valid @RequestBody CuentaDTO cuentaDTO){
         log.info("registrarCuenta");
         try{
             return new ResponseEntity<>(cuentaService.registrarCuenta(cuentaDTO), HttpStatus.CREATED);
@@ -52,7 +53,7 @@ public class CuentaController {
     }
     
     @PutMapping("/actualizar")
-    public ResponseEntity<?> actualizarCuenta(@RequestBody CuentaDTO cuentaDTO){
+    public ResponseEntity<?> actualizarCuenta(@Valid @RequestBody CuentaDTO cuentaDTO){
         log.info("actualizarCuenta");
         return new ResponseEntity<>(cuentaService.actualizarCuenta(cuentaDTO), HttpStatus.OK);
     }

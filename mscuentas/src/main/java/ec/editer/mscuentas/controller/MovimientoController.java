@@ -10,6 +10,7 @@ import ec.editer.mscuentas.dtos.MovimientoDTO;
 import ec.editer.mscuentas.service.ICuentaService;
 import ec.editer.mscuentas.service.IMovimientoService;
 import ec.editer.mscuentas.service.IReporteSevice;
+import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +49,7 @@ public class MovimientoController {
     private IReporteSevice reporteService;
 
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarMovimiento(@RequestBody MovimientoDTO movimientoDTO) {
+    public ResponseEntity<?> registrarMovimiento(@Valid @RequestBody MovimientoDTO movimientoDTO) {
         log.info("registrarMovimiento");
 
         //En caso de que el valor sea 0
@@ -78,7 +79,7 @@ public class MovimientoController {
             if (movimientoDTO.getValor().doubleValue() > 0) {
                 movimientoDTO.setValor(movimientoDTO.getValor().multiply(new BigDecimal(-1)));
             }
-            if (movimientoDTO.getValor().doubleValue() > saldoDisponible.doubleValue()) {
+            if (movimientoDTO.getValor().doubleValue() * -1 > saldoDisponible.doubleValue()) {
                 return new ResponseEntity<>("Saldo no disponible", HttpStatus.ACCEPTED);
             }
         } else {

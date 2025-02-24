@@ -5,7 +5,6 @@ import ec.editer.msclientes.model.Cliente;
 import ec.editer.msclientes.repository.ClienteRepository;
 import ec.editer.msclientes.service.impl.ClienteService;
 import static org.assertj.core.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -28,10 +27,7 @@ import org.springframework.beans.BeanUtils;
  */
 @ExtendWith(MockitoExtension.class)
 public class ClientesAppUnitTest {
-    
-    private Cliente cliente = new Cliente();
-    private ClienteDTO clienteDTO = new ClienteDTO();
-    
+        
     @Captor
     private ArgumentCaptor<Cliente> captor;
     
@@ -41,8 +37,11 @@ public class ClientesAppUnitTest {
     @InjectMocks
     private ClienteService clienteService;
     
-    @BeforeEach
-    public void setUp(){
+    @Test
+    public void testRegistrarCliente(){
+        //given
+        Cliente cliente = new Cliente();
+        ClienteDTO clienteDTO = new ClienteDTO();
         cliente.setContrasenia("1234");
         cliente.setDireccion("Quito SN");
         cliente.setEdad(62);
@@ -53,12 +52,7 @@ public class ClientesAppUnitTest {
         cliente.setTelefono("02555");
         
         BeanUtils.copyProperties(cliente, clienteDTO);
-    }
-    
-    @Test
-    public void testRegistrarCliente(){
-        //given
-        given(clienteRepository.save(cliente)).willReturn(cliente);
+        given(clienteRepository.save(any(Cliente.class))).willReturn(cliente);
         
         //when
         ClienteDTO cli = clienteService.registrarCliente(clienteDTO);

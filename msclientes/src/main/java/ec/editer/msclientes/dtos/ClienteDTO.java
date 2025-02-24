@@ -5,6 +5,8 @@
  */
 package ec.editer.msclientes.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +23,13 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Data
 public class ClienteDTO extends PersonaDTO{
-    private Integer clienteId;    
+    @NotNull
+    private Integer clienteId;
+
+    @NotNull(message = "Contrasenia es requerido")
+    @NotBlank(message = "Contrasenia es requerido")
     private String contrasenia;
+    
+    @NotNull
     private boolean estado;
 }

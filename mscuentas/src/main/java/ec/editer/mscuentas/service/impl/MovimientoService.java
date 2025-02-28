@@ -29,18 +29,18 @@ import org.springframework.web.client.RestTemplate;
  */
 @Service
 public class MovimientoService implements IMovimientoService {
-
+    
     @Value("${api.clientes}")
     private String apiClientes;
+    
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     private MovimientoRepository movimientoRepository;
 
     @Autowired
     private ICuentaService cuentaService;
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Override
     public MovimientoDTO registrarMovimiento(MovimientoDTO movimientoDTO) {

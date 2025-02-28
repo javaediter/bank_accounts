@@ -7,6 +7,8 @@ package ec.editer.mscuentas.controller;
 
 import ec.editer.mscuentas.dtos.CuentaDTO;
 import ec.editer.mscuentas.dtos.MovimientoDTO;
+import ec.editer.mscuentas.reporte.Registro;
+import ec.editer.mscuentas.reporte.Reporte;
 import ec.editer.mscuentas.service.ICuentaService;
 import ec.editer.mscuentas.service.IMovimientoService;
 import ec.editer.mscuentas.service.IReporteSevice;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ec.editer.mscuentas.service.amqp.IReportePublisher;
 
 /**
  *
@@ -47,6 +50,9 @@ public class MovimientoController {
 
     @Autowired
     private IReporteSevice reporteService;
+    
+    @Autowired
+    private IReportePublisher reportePublisher;
 
     @PostMapping("/registrar")
     public ResponseEntity<?> registrarMovimiento(@Valid @RequestBody MovimientoDTO movimientoDTO) {
@@ -124,7 +130,10 @@ public class MovimientoController {
             Date fechaEnd = dateFormat.parse(fechaFin);
             java.sql.Date fechaStartSQL = new java.sql.Date(fechaStart.getTime());
             java.sql.Date fechaEndSQL = new java.sql.Date(fechaEnd.getTime());
-            return new ResponseEntity<>(reporteService.construirReporte(clienteId, fechaStartSQL, fechaEndSQL), HttpStatus.OK);
+            List<Registro> registros = reporteService.construirReporte(clienteId, fechaStartSQL, fechaEndSQL);
+            Reporte reporte = new Reporte(registros);
+            reportePublisher.publicarReporte(reporte);
+            return new ResponseEntity<>(reporte, HttpStatus.OK);
         } catch (ParseException ex) {
             return new ResponseEntity<>("Formato incorrecto de fechas", HttpStatus.BAD_REQUEST);
         }

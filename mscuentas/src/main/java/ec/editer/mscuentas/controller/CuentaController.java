@@ -7,7 +7,6 @@ package ec.editer.mscuentas.controller;
 
 import ec.editer.mscuentas.dtos.CuentaDTO;
 import ec.editer.mscuentas.service.ICuentaService;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -32,39 +34,52 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/cuentas")
 @CrossOrigin(origins = "*/*")
 public class CuentaController {
+    
+    @Value("${api.clientes}")
+    private String apiClientes;
+    
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Autowired
     private ICuentaService cuentaService;
-    
+
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarCuenta(@Valid @RequestBody CuentaDTO cuentaDTO){
+    public ResponseEntity<?> registrarCuenta(@RequestBody CuentaDTO cuentaDTO) {
         log.info("registrarCuenta");
-        try{
+        try {
             return new ResponseEntity<>(cuentaService.registrarCuenta(cuentaDTO), HttpStatus.CREATED);
-        }catch(DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             log.error(String.format("ERROR: %s", e.getMessage()));
             return new ResponseEntity<>(String.format("Entradas duplicadas (numero %s y tipo de cuenta %s)", cuentaDTO.getNumero(), cuentaDTO.getTipoCuenta()), HttpStatus.NOT_ACCEPTABLE);
         }
     }
-    
+
     @GetMapping("/por_cliente")
-    public ResponseEntity<?> obtenerCuentasPorCliente(@RequestParam("cliente_id") Integer clienteId){
+    public ResponseEntity<?> obtenerCuentasPorCliente(@RequestParam("cliente_id") Integer clienteId) {
         log.info("obtenerCuentasPorCliente");
-        return new ResponseEntity<>(cuentaService.cuentasPorCliente(clienteId), HttpStatus.OK);
+        String clienteNombre = restTemplate.getForObject(apiClientes + "/obtenerNombreCliente?cliente_id=" + clienteId, String.class);
+        log.info("clienteNombre = " + clienteNombre);
+        List<CuentaDTO> cuentas = cuentaService.cuentasPorCliente(clienteId);
+        cuentas.forEach(x -> {
+            x.setNombreCliente(clienteNombre);
+        });
+        return new ResponseEntity<>(cuentas, HttpStatus.OK);
     }
-    
+
     @PutMapping("/actualizar")
-    public ResponseEntity<?> actualizarCuenta(@Valid @RequestBody CuentaDTO cuentaDTO){
+    public ResponseEntity<?> actualizarCuenta(@RequestBody CuentaDTO cuentaDTO) {
         log.info("actualizarCuenta");
         return new ResponseEntity<>(cuentaService.actualizarCuenta(cuentaDTO), HttpStatus.OK);
     }
-    
+
     @DeleteMapping("/eliminar")
-    public ResponseEntity<?> eliminarCuenta(@RequestParam("cuenta_id") Integer cuentaId){
+    public ResponseEntity<?> eliminarCuenta(@RequestParam("cuenta_id") Integer cuentaId) {
         log.info("eliminarCuenta");
-        try{
+        try {
             cuentaService.eliminarCuenta(cuentaId);
             return new ResponseEntity<>("Registro eliminado correctamente", HttpStatus.OK);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>("La cuenta no puede ser eliminada porque tiene movimientos", HttpStatus.NOT_ACCEPTABLE);
         }
     }

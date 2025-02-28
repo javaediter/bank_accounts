@@ -5,7 +5,7 @@
  */
 package ec.editer.mscuentas.service.impl;
 
-import ec.editer.mscuentas.reporte.Reporte;
+import ec.editer.mscuentas.reporte.Registro;
 import ec.editer.mscuentas.repository.MovimientoRepository;
 import ec.editer.mscuentas.service.IReporteSevice;
 import java.math.BigDecimal;
@@ -26,11 +26,11 @@ public class ReporteService implements IReporteSevice{
     private MovimientoRepository movimientoRepository;
 
     @Override
-    public List<Reporte> construirReporte(Integer clienteId, Date fechaInicio, Date fechaFin) {
-        List<Reporte> reporte = new ArrayList<>();
+    public List<Registro> construirReporte(Integer clienteId, Date fechaInicio, Date fechaFin) {
+        List<Registro> reporte = new ArrayList<>();
         movimientoRepository.construirReporte(clienteId, fechaInicio, fechaFin).forEach(x -> {
             Object[] array = (Object[])x;
-            Reporte rep = new Reporte();
+            Registro rep = new Registro();
             rep.setFecha(array[0].toString());
             rep.setCliente(array[1].toString());
             rep.setNumeroCuenta(array[2].toString());

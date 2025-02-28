@@ -12,6 +12,7 @@ import ec.editer.msclientes.service.IClienteService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,9 +22,10 @@ import org.springframework.stereotype.Service;
  *
  * @author Edison Teran
  */
+@Slf4j
 @Service
-public class ClienteService implements IClienteService{
-    
+public class ClienteService implements IClienteService {
+
     @Autowired
     private ClienteRepository clienteRepository;
 
@@ -50,10 +52,10 @@ public class ClienteService implements IClienteService{
     @Override
     public Optional<ClienteDTO> obtenerClientePorId(Integer clienteId) {
         Optional<Cliente> opt = clienteRepository.findById(clienteId);
-        
-        if(opt.isPresent()){
+
+        if (opt.isPresent()) {
             Cliente x = opt.get();
-            
+
             ClienteDTO clienteDTO = ClienteDTO.builder()
                     .clienteId(x.getClienteId())
                     .direccion(x.getDireccion())
@@ -65,9 +67,9 @@ public class ClienteService implements IClienteService{
                     .telefono(x.getTelefono())
                     .estado(x.isEstado())
                     .build();
-            
+
             return Optional.of(clienteDTO);
-        }else{
+        } else {
             return Optional.empty();
         }
     }
@@ -85,7 +87,7 @@ public class ClienteService implements IClienteService{
     @Override
     public ClienteDTO actualizarCliente(ClienteDTO clienteDTO) throws DataIntegrityViolationException {
         Optional<Cliente> opt = clienteRepository.findById(clienteDTO.getClienteId());
-        if(opt.isPresent()){
+        if (opt.isPresent()) {
             Cliente cliente = opt.get();
             cliente.setContrasenia(clienteDTO.getContrasenia());
             cliente.setDireccion(clienteDTO.getDireccion());
@@ -96,7 +98,7 @@ public class ClienteService implements IClienteService{
             ClienteDTO dto = new ClienteDTO();
             BeanUtils.copyProperties(cliente, dto);
             return dto;
-        }else{
+        } else {
             return registrarCliente(clienteDTO);
         }
     }
@@ -110,5 +112,5 @@ public class ClienteService implements IClienteService{
     public String obtenerNombreCliente(Integer clienteId) {
         return clienteRepository.obtenerNombreCliente(clienteId);
     }
-    
+
 }

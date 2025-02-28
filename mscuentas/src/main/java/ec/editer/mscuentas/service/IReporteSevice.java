@@ -5,7 +5,7 @@
  */
 package ec.editer.mscuentas.service;
 
-import ec.editer.mscuentas.reporte.Reporte;
+import ec.editer.mscuentas.reporte.Registro;
 import java.sql.Date;
 import java.util.List;
 
@@ -14,5 +14,5 @@ import java.util.List;
  * @author Edison Teran
  */
 public interface IReporteSevice {
-    List<Reporte> construirReporte(Integer clienteId, Date fechaInicio, Date fechaFin);
+    List<Registro> construirReporte(Integer clienteId, Date fechaInicio, Date fechaFin);
 }

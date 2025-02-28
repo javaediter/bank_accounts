@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.editer.mscuentas.reporte;
+package ec.editer.mscuentas.service.amqp;
 
-import java.util.List;
-import lombok.Value;
+import ec.editer.mscuentas.reporte.Reporte;
 
 /**
  *
  * @author Edison Teran
  */
-@Value
-public class Reporte {
-    private List<Registro> registros;
+public interface IReportePublisher {
+    void publicarReporte(Reporte reporte);
 }

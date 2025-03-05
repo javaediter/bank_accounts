@@ -1,7 +1,18 @@
 #docker-compose:
-version: '3.2'
+version: '3.8'
 
 services:
+    rabbitmq-banca:
+        image: rabbitmq:4.0-management
+        container_name: rabbitmq-banca
+        hostname: rabbitmq-banca
+        restart: always
+        ports:
+        - 5673:5672
+        - 15673:15672
+        networks:
+            - bancanet
+        
     mysql-banca:
         image: imgmysql
         container_name: mysql-banca
@@ -15,6 +26,16 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
         volumes:
             - ./mysql/varlibmysql:/docker-entrypoint-initdb.d
+            
+    mongodb-banca:
+        image: mongo:latest
+        container_name: mongodb-banca
+        hostname: mongodb-banca
+        restart: always
+        ports:
+            - "27018:27017"
+        networks:
+            - bancanet
 
     msclientes:
         image: imgclientes
@@ -29,9 +50,8 @@ services:
             - DB_PORT=${DB_PORT}
             - DB_USER=${DB_USER}
             - DB_PASSWORD=${DB_PASSWORD}
+            - API_REPORTES=http://msreportes:8083/api/reporte
         restart: always
-        links:
-            - mysql-banca
         depends_on:
             - mysql-banca
     
@@ -50,12 +70,26 @@ services:
             - DB_PASSWORD=${DB_PASSWORD}
             - API_CLIENTES=http://msclientes:8081/api/clientes
         restart: always
-        links:
-            - msclientes
-            - mysql-banca
         depends_on:
             - mysql-banca
+            - rabbitmq-banca
             - msclientes
+    
+    msreportes:
+        image: imgreportes
+        container_name: msreportes
+        hostname: msreportes
+        networks:
+            - bancanet
+        ports:
+            - "8083:8083"
+        environment:
+            - MONGO_URI=mongodb://mongodb-banca:27017/reportes
+        restart: always
+        depends_on:
+            - mongodb-banca
+            - rabbitmq-banca
+            - mscuentas
 
 networks:
     bancanet:

@@ -58,7 +58,7 @@ public class CuentaController {
     @GetMapping("/por_cliente")
     public ResponseEntity<?> obtenerCuentasPorCliente(@RequestParam("cliente_id") Integer clienteId) {
         log.info("obtenerCuentasPorCliente");
-        String clienteNombre = restTemplate.getForObject(apiClientes + "/obtenerNombreCliente?cliente_id=" + clienteId, String.class);
+        String clienteNombre = restTemplate.getForObject(apiClientes + "/nombre-cliente?cliente_id=" + clienteId, String.class);
         log.info("clienteNombre = " + clienteNombre);
         List<CuentaDTO> cuentas = cuentaService.cuentasPorCliente(clienteId);
         cuentas.forEach(x -> {

@@ -2,7 +2,10 @@
 
 docker rmi imgclientes
 docker rmi imgcuentas
+docker rmi imgreportes
 docker rmi imgmysql
+docker rmi mongo
+docker rmi rabbitmq
 
 cd mysql
 
@@ -19,6 +22,12 @@ cd ../mscuentas
 mvn clean install
 
 docker build -t imgcuentas .
+
+cd ../msreportes
+
+mvn clean install
+
+docker build -t imgreportes .
 
 docker network rm bancanet
 

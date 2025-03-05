@@ -5,7 +5,6 @@
  */
 package ec.editer.mscuentas.service.amqp.impl;
 
-import ec.editer.mscuentas.reporte.Registro;
 import ec.editer.mscuentas.reporte.Reporte;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -22,8 +21,6 @@ import ec.editer.mscuentas.service.amqp.IReportePublisher;
 @Service
 public class ReportePublisher implements IReportePublisher{
     
-    String nombre;
-    
     @Value("${amqp.banca.topic.name}")
     private String topicExchangeName;
     
@@ -37,7 +34,7 @@ public class ReportePublisher implements IReportePublisher{
     @Override
     public void publicarReporte(Reporte reporte) {
         log.info(">------------------> publicarReporte <------------------<");
-        String routingKey = "reportes.movimientos.json";
+        String routingKey = "reportes.movimientos.cliente.id";
         rabbitTemplate.convertAndSend(topicExchangeName, routingKey, reporte);
     }
 }

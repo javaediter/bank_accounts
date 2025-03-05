@@ -7,7 +7,11 @@ package ec.editer.msclientes.controller;
 
 import ec.editer.msclientes.dtos.ClienteDTO;
 import ec.editer.msclientes.service.IClienteService;
+import ec.editer.msclientes.service.IReporteService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +41,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteController {
     @Autowired
     private IClienteService clienteService;
+    
+    @Autowired
+    private IReporteService reporteService;
     
     @GetMapping("/")
     public ResponseEntity<List<ClienteDTO>> obtenerClientes(){
@@ -89,9 +96,16 @@ public class ClienteController {
         }      
     }
     
-    @GetMapping("/obtenerNombreCliente")
+    @GetMapping("/nombre-cliente")
     public ResponseEntity<?> obtenerNombreCliente(@RequestParam("cliente_id") Integer clienteId){
         log.info("obtenerNombreCliente");
         return new ResponseEntity<>(clienteService.obtenerNombreCliente(clienteId), HttpStatus.OK);
+    }
+    
+    @GetMapping("/reporte-csv")
+    public void downloadCsvReporte(HttpServletResponse response, @RequestParam("cliente_id") Integer clienteId) throws IOException{
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=reporte_" + clienteId + "_" + new Date().getTime() + ".csv");
+        reporteService.escribirReporteToCsv(response.getWriter(), clienteId);
     }
 }

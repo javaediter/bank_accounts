@@ -6,15 +6,20 @@
 package ec.editer.mscuentas.reporte;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Edison Teran
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class Registro {
+public class Registro implements Serializable{
     @JsonProperty("Fecha")
     private String fecha;
     

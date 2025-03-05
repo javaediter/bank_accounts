@@ -98,5 +98,10 @@ public class CuentaService implements ICuentaService{
         }
         return dto;
     }
+
+    @Override
+    public List<Integer> obtenerClientesIds() {
+        return cuentaRepository.obtenerClientesIds();
+    }
     
 }

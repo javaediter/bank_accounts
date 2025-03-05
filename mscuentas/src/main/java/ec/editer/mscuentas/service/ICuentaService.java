@@ -21,4 +21,5 @@ public interface ICuentaService {
     CuentaDTO obtenerCuentaPorCuentaId(Integer cuentaId);
     Optional<CuentaDTO> obtenerCuentaPorNumeroTipo(String numero, String tipoCuenta);
     void eliminarCuenta(Integer cuentaId) throws Exception;
+    List<Integer> obtenerClientesIds();
 }

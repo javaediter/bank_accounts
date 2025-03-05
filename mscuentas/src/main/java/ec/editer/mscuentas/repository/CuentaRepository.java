@@ -23,4 +23,7 @@ public interface CuentaRepository extends CrudRepository<Cuenta, Integer>{
     
     @Query("SELECT q.saldoInicial FROM Cuenta q WHERE q.cuentaId = :id")
     BigDecimal obtenerSaldoDelUltimoMovimiento(@Param("id") Integer cuentaId);
+    
+    @Query("SELECT q.clienteId FROM Cuenta q GROUP BY q.clienteId ORDER BY q.clienteId")
+    List<Integer> obtenerClientesIds();
 }

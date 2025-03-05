@@ -131,7 +131,7 @@ public class MovimientoController {
             java.sql.Date fechaStartSQL = new java.sql.Date(fechaStart.getTime());
             java.sql.Date fechaEndSQL = new java.sql.Date(fechaEnd.getTime());
             List<Registro> registros = reporteService.construirReporte(clienteId, fechaStartSQL, fechaEndSQL);
-            Reporte reporte = new Reporte(registros);
+            Reporte reporte = new Reporte(clienteId, registros);
             reportePublisher.publicarReporte(reporte);
             return new ResponseEntity<>(reporte, HttpStatus.OK);
         } catch (ParseException ex) {

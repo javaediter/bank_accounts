@@ -30,8 +30,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class MovimientoService implements IMovimientoService {
     
-    @Value("${api.clientes}")
-    private String apiClientes;
+    @Value("${api.server.clientes}")
+    private String apiServerClientes;
     
     @Autowired
     private RestTemplate restTemplate;
@@ -73,7 +73,7 @@ public class MovimientoService implements IMovimientoService {
         List<MovimientoDTO> movimientosDTO = new ArrayList<>();
         java.sql.Date fechaStart = new java.sql.Date(fechaInicio.getTime());
         java.sql.Date fechaEnd = new java.sql.Date(fechaFin.getTime());
-        String nombreCliente = restTemplate.getForObject(apiClientes + "/obtenerNombreCliente?cliente_id=" + clienteId, String.class);
+        String nombreCliente = restTemplate.getForObject(apiServerClientes + "/nombre-cliente?cliente_id=" + clienteId, String.class);
         movimientoRepository.findAllByCuentaClienteIdAndFechaBetween(clienteId, fechaStart, fechaEnd).forEach(x -> {
             MovimientoDTO movimientoDTO = new MovimientoDTO();
             BeanUtils.copyProperties(x, movimientoDTO);
@@ -89,7 +89,7 @@ public class MovimientoService implements IMovimientoService {
     public List<MovimientoDTO> obtenerMovimientosPorCuenta(Integer cuentaId, String tipoOrdenacion) {
         List<MovimientoDTO> movimientosDTO = new ArrayList<>();
         CuentaDTO cuentaDTO = cuentaService.obtenerCuentaPorCuentaId(cuentaId);
-        String nombreCliente = restTemplate.getForObject(apiClientes + "/obtenerNombreCliente?cliente_id=" + cuentaDTO.getClienteId(), String.class);
+        String nombreCliente = restTemplate.getForObject(apiServerClientes + "/nombre-cliente?cliente_id=" + cuentaDTO.getClienteId(), String.class);
         movimientoRepository.findAllByCuentaCuentaId(cuentaId, Sort.by(tipoOrdenacion.equalsIgnoreCase("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, "movimientoId")).forEach(x -> {
             MovimientoDTO movimientoDTO = new MovimientoDTO();
             BeanUtils.copyProperties(x, movimientoDTO);

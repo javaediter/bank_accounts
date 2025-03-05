@@ -15,6 +15,8 @@
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
                 <Env.API_CLIENTES>http://localhost:8081/api/clientes</Env.API_CLIENTES>
+                
+                
             </properties>
         </action>
         <action>
@@ -34,6 +36,8 @@
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
                 <Env.API_CLIENTES>http://localhost:8081/api/clientes</Env.API_CLIENTES>
+                
+                
             </properties>
         </action>
         <action>
@@ -54,6 +58,8 @@
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
                 <Env.API_CLIENTES>http://localhost:8081/api/clientes</Env.API_CLIENTES>
+                
+                
             </properties>
         </action>
     </actions>

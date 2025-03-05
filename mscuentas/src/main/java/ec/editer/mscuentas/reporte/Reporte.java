@@ -5,14 +5,20 @@
  */
 package ec.editer.mscuentas.reporte;
 
+import java.io.Serializable;
 import java.util.List;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Edison Teran
  */
-@Value
-public class Reporte {
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Reporte implements Serializable{
+    private Integer clienteId;
     private List<Registro> registros;
 }

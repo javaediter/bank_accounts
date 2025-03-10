@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ec.editer.msclientes;
 
 import ec.editer.msclientes.dtos.ClienteDTO;
@@ -5,29 +10,35 @@ import ec.editer.msclientes.model.Cliente;
 import ec.editer.msclientes.repository.ClienteRepository;
 import ec.editer.msclientes.service.impl.ClienteService;
 import java.util.Optional;
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import static org.mockito.BDDMockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 /**
  *
  * @author Edison Teran
  */
-@ExtendWith(MockitoExtension.class)
-public class ClienteServiceTest {
+@SpringBootTest(classes = {ClienteService.class})
+public class SpringClienteServiceTest {
     
-    @Mock
-    private ClienteRepository clienteRepository;
+    @MockitoBean
+    ClienteRepository clienteRepository;
     
-    @InjectMocks
-    private ClienteService clienteService;
+    @Autowired
+    ClienteService clienteService;
     
+    @DisplayName("Registrar Cliente con SpringBootTest")
     @Test
     public void testRegistrarCliente(){
         //setting data and mock        
@@ -53,8 +64,9 @@ public class ClienteServiceTest {
         verify(clienteRepository).save(any(Cliente.class));        
     }
     
+    @DisplayName("Obtener Cliente Por Id con SpringBootTest")
     @Test
-    public void testobtenerClientePorId(){
+    public void testObtenerClientePorId(){
         //setting data and mock          
         Cliente entidad = new Cliente();
         entidad.setContrasenia("1234");

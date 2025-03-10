@@ -62,4 +62,18 @@
                 
             </properties>
         </action>
+        <action>
+            <actionName>test.single</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <test>${packageClassName}</test>
+                <Env.API_CLIENTES>http://localhost:8081/api/clientes</Env.API_CLIENTES>
+            </properties>
+        </action>
     </actions>

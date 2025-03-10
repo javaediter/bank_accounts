@@ -12,28 +12,38 @@ import ec.editer.mscuentas.service.ICuentaService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
  * @author Edison Teran
  */
+@RequiredArgsConstructor
 @Service
 public class CuentaService implements ICuentaService{
+    
+    @Value("${api.server.clientes}")
+    private String apiServerClientes;
         
     @Autowired
     private CuentaRepository cuentaRepository;
+    
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public List<CuentaDTO> cuentasPorCliente(Integer clienteId) {
         List<CuentaDTO> cuentas = new ArrayList<>();
-        //String nombreCliente = messageClienteSub.suscribirClienteNombreMessage();
+        String nombreCliente = restTemplate.getForObject(apiServerClientes + "/nombre-cliente?clienteId=" + clienteId, String.class);
         cuentaRepository.findAllByClienteId(clienteId).forEach(x -> {
             CuentaDTO cuentaDTO = new CuentaDTO();
             BeanUtils.copyProperties(x, cuentaDTO);
-            cuentaDTO.setNombreCliente(null);
+            cuentaDTO.setNombreCliente(nombreCliente);
             cuentas.add(cuentaDTO);
         });
         return cuentas;
@@ -46,8 +56,8 @@ public class CuentaService implements ICuentaService{
         cuenta.setCuentaId(null);
         cuentaRepository.save(cuenta);
         cuentaDTO.setCuentaId(cuenta.getCuentaId());
-        //String nombreCliente = messageClienteSub.suscribirClienteNombreMessage();
-        cuentaDTO.setNombreCliente(null);
+        String nombreCliente = restTemplate.getForObject(apiServerClientes + "/nombre-cliente?clienteId=" + cuentaDTO.getClienteId(), String.class);
+        cuentaDTO.setNombreCliente(nombreCliente);
         return cuentaDTO;
     }
 
@@ -61,8 +71,8 @@ public class CuentaService implements ICuentaService{
             cuentaRepository.save(cuenta);
             CuentaDTO dto = new CuentaDTO();        
             BeanUtils.copyProperties(cuenta, dto);
-            //String nombreCliente = messageClienteSub.suscribirClienteNombreMessage();
-            dto.setNombreCliente(null);
+            String nombreCliente = restTemplate.getForObject(apiServerClientes + "/nombre-cliente?clienteId=" + cuentaDTO.getClienteId(), String.class);
+            dto.setNombreCliente(nombreCliente);
             return dto;
         }else{
             return registrarCuenta(cuentaDTO);

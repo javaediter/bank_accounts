@@ -59,6 +59,7 @@ public class CuentaServiceTest {
         corriente.setNumero("901");
         corriente.setTipoCuenta("Corriente");
         corriente.setSaldoInicial(new BigDecimal(100));
+        cuentas.add(corriente);
         
         String nombreCliente = "Guest Guest";
         

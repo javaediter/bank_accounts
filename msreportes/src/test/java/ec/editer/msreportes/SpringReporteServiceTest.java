@@ -35,10 +35,7 @@ public class SpringReporteServiceTest {
     @DisplayName("Obtener Ultimo Reporte con SpringBootTest")
     @Test
     public void testObtenerUltimoReporte(){
-        Reporte reporte = new Reporte();
-        reporte.setClienteId(1);
-        reporte.setId("abc001");
-        reporte.setJsonContenido("\\{\\}");
+        Reporte reporte = Reporte.builder().clienteId(1).id("abc001").jsonContenido("\\{\\}").build();
         when(reporteRepository.findFirstByClienteIdOrderByFechaDesc(anyInt())).thenReturn(reporte);
         
         Optional<Reporte> opt = reporteService.obtenerUltimoReporte(1);

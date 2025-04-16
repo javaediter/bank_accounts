@@ -24,7 +24,7 @@ public interface MovimientoRepository extends JpaRepository<Movimiento, Integer>
     //Los parametros deben estar en el mismo orden que en el SP
     //Internamente hace la llamada CALL
     @Procedure("sp_reporte")
-    List<Object> construirReporte(java.sql.Date fechaInicio, java.sql.Date fechaFin, Integer clienteId);
+    List<Object> reporteSP(java.sql.Date fechaInicio, java.sql.Date fechaFin, Integer clienteId);
     
     //El nombre del método es el mismo que el SP, no es necesario agregarlo en @Procedure
     //@Procedure

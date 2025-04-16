@@ -6,6 +6,7 @@
 package ec.editer.msreportes.model;
 
 import java.util.Date;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *
  * @author Edison Teran
  */
+@Builder
 @Data
 @Document(collection = "reportes")
 public class Reporte {

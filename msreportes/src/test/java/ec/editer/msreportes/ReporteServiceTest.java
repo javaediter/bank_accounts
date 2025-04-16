@@ -8,8 +8,6 @@ package ec.editer.msreportes;
 import ec.editer.msreportes.model.Reporte;
 import ec.editer.msreportes.repository.ReporteRepository;
 import ec.editer.msreportes.service.ReporteService;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
@@ -36,10 +34,7 @@ public class ReporteServiceTest {
     @DisplayName("Obtener Ultimo Reporte")
     @Test
     public void testObtenerUltimoReporte(){
-        Reporte reporte = new Reporte();
-        reporte.setClienteId(1);
-        reporte.setId("abc001");
-        reporte.setJsonContenido("\\{\\}");
+        Reporte reporte = Reporte.builder().clienteId(1).id("abc001").jsonContenido("\\{\\}").build();
         when(reporteRepository.findFirstByClienteIdOrderByFechaDesc(anyInt())).thenReturn(reporte);
         
         Optional<Reporte> opt = reporteService.obtenerUltimoReporte(1);

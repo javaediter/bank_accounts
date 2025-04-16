@@ -36,7 +36,7 @@ public class ReporteService implements IReporteSevice{
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         log.info(String.format("...construirReporte clienteId = %d, fechaInicio = %s, fechaFin = %s", clienteId, format.format(fechaInicio), format.format(fechaFin)));
         List<Registro> reporte = new ArrayList<>();
-        movimientoRepository.construirReporte(fechaInicio, fechaFin, clienteId).forEach(x -> {
+        movimientoRepository.reporteSP(fechaInicio, fechaFin, clienteId).forEach(x -> {
             Object[] array = (Object[])x;
             Registro rep = new Registro();
             rep.setFecha(array[0].toString());

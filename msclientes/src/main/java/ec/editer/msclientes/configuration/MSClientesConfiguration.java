@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Edison Teran
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class MSClientesConfiguration {
     
     @Bean

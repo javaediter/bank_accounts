@@ -1,6 +1,7 @@
 package ec.editer.msclientes;
 
 import ec.editer.msclientes.dtos.ClienteDTO;
+import ec.editer.msclientes.enums.GeneroEnum;
 import ec.editer.msclientes.model.Cliente;
 import ec.editer.msclientes.repository.ClienteRepository;
 import ec.editer.msclientes.service.impl.ClienteService;
@@ -9,10 +10,12 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.BDDMockito.*;
+import org.mockito.Captor;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -21,6 +24,9 @@ import org.springframework.beans.BeanUtils;
  */
 @ExtendWith(MockitoExtension.class)
 public class ClienteServiceTest {
+    
+    @Captor
+    private ArgumentCaptor<Cliente> captor;
     
     @Mock
     private ClienteRepository clienteRepository;
@@ -43,13 +49,14 @@ public class ClienteServiceTest {
         Cliente entidad = new Cliente();
         BeanUtils.copyProperties(dto, entidad);
         entidad.setClienteId(1);
-        when(clienteRepository.save(any(Cliente.class))).thenReturn(entidad);
+        when(clienteRepository.save(captor.capture())).thenReturn(entidad);
         
         //when
         clienteService.registrarCliente(dto);
         
         //then
         assertThat(dto.getClienteId()).isEqualTo(1);
+        assertEquals(captor.getValue().getGenderEnum().name(), GeneroEnum.MASCULINO.name());
         verify(clienteRepository).save(any(Cliente.class));        
     }
     
@@ -61,7 +68,7 @@ public class ClienteServiceTest {
         entidad.setDireccion("Quito SN");
         entidad.setEdad(62);
         entidad.setEstado(true);
-        entidad.setGenero("Masculino");
+        entidad.setGenderEnum(GeneroEnum.MASCULINO);
         entidad.setIdentificacion("111");
         entidad.setNombre("Isaac Asimov");
         entidad.setTelefono("02555");

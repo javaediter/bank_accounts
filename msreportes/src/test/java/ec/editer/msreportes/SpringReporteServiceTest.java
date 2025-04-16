@@ -8,10 +8,8 @@ package ec.editer.msreportes;
 import ec.editer.msreportes.model.Reporte;
 import ec.editer.msreportes.repository.ReporteRepository;
 import ec.editer.msreportes.service.ReporteService;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -37,12 +35,15 @@ public class SpringReporteServiceTest {
     @DisplayName("Obtener Ultimo Reporte con SpringBootTest")
     @Test
     public void testObtenerUltimoReporte(){
-        List<Reporte> reportes = new ArrayList<>();
-        when(reporteRepository.findAllByClienteIdOrderByFechaDesc(anyInt())).thenReturn(reportes);
+        Reporte reporte = new Reporte();
+        reporte.setClienteId(1);
+        reporte.setId("abc001");
+        reporte.setJsonContenido("\\{\\}");
+        when(reporteRepository.findFirstByClienteIdOrderByFechaDesc(anyInt())).thenReturn(reporte);
         
         Optional<Reporte> opt = reporteService.obtenerUltimoReporte(1);
         
-        assertTrue(opt.isEmpty());
-        verify(reporteRepository).findAllByClienteIdOrderByFechaDesc(anyInt());
+        assertFalse(opt.isEmpty());
+        verify(reporteRepository).findFirstByClienteIdOrderByFechaDesc(anyInt());
     }
 }

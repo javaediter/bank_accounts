@@ -11,7 +11,6 @@ import ec.editer.msreportes.model.Reporte;
 import ec.editer.msreportes.repository.ReporteRepository;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,11 +34,11 @@ public class ReporteService {
     private final ReporteRepository reporteRepository;
     
     public Optional<Reporte> obtenerUltimoReporte(Integer clienteId){
-        List<Reporte> reportes = reporteRepository.findAllByClienteIdOrderByFechaDesc(clienteId);
-        if(reportes.isEmpty()){
+        Reporte reporte = reporteRepository.findFirstByClienteIdOrderByFechaDesc(clienteId);
+        if(reporte == null){
             return Optional.empty();
         }else{
-            return Optional.of(reportes.get(0));
+            return Optional.of(reporte);
         }
     }
     

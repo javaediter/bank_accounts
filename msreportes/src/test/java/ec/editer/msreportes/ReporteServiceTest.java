@@ -36,12 +36,15 @@ public class ReporteServiceTest {
     @DisplayName("Obtener Ultimo Reporte")
     @Test
     public void testObtenerUltimoReporte(){
-        List<Reporte> reportes = new ArrayList<>();
-        when(reporteRepository.findAllByClienteIdOrderByFechaDesc(anyInt())).thenReturn(reportes);
+        Reporte reporte = new Reporte();
+        reporte.setClienteId(1);
+        reporte.setId("abc001");
+        reporte.setJsonContenido("\\{\\}");
+        when(reporteRepository.findFirstByClienteIdOrderByFechaDesc(anyInt())).thenReturn(reporte);
         
         Optional<Reporte> opt = reporteService.obtenerUltimoReporte(1);
         
-        assertTrue(opt.isEmpty());
-        verify(reporteRepository).findAllByClienteIdOrderByFechaDesc(anyInt());
+        assertFalse(opt.isEmpty());
+        verify(reporteRepository).findFirstByClienteIdOrderByFechaDesc(anyInt());
     }
 }

@@ -125,12 +125,13 @@ public class MovimientoController {
     public ResponseEntity<?> generarReporte(@RequestParam("cliente_id") Integer clienteId, @RequestParam("fecha_inicio") String fechaInicio, @RequestParam("fecha_fin") String fechaFin) {
         log.info("generarReporte");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
+        try {            
             Date fechaStart = dateFormat.parse(fechaInicio);
             Date fechaEnd = dateFormat.parse(fechaFin);
             java.sql.Date fechaStartSQL = new java.sql.Date(fechaStart.getTime());
-            java.sql.Date fechaEndSQL = new java.sql.Date(fechaEnd.getTime());
-            List<Registro> registros = reporteService.construirReporte(clienteId, fechaStartSQL, fechaEndSQL);
+            java.sql.Date fechaEndSQL = new java.sql.Date(fechaEnd.getTime());            
+            
+            List<Registro> registros = reporteService.construirReporte(fechaStartSQL, fechaEndSQL, clienteId);
             Reporte reporte = new Reporte(clienteId, registros);
             reportePublisher.publicarReporte(reporte);
             return new ResponseEntity<>(reporte, HttpStatus.OK);

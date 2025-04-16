@@ -6,6 +6,7 @@
 package ec.editer.msclientes;
 
 import ec.editer.msclientes.dtos.ClienteDTO;
+import ec.editer.msclientes.enums.GeneroEnum;
 import ec.editer.msclientes.model.Cliente;
 import ec.editer.msclientes.repository.ClienteRepository;
 import ec.editer.msclientes.service.impl.ClienteService;
@@ -16,8 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import org.mockito.Captor;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.springframework.beans.BeanUtils;
@@ -31,6 +34,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
  */
 @SpringBootTest(classes = {ClienteService.class})
 public class SpringClienteServiceTest {
+    
+    @Captor
+    ArgumentCaptor<Cliente> captor;
     
     @MockitoBean
     ClienteRepository clienteRepository;
@@ -54,14 +60,15 @@ public class SpringClienteServiceTest {
         Cliente entidad = new Cliente();
         BeanUtils.copyProperties(dto, entidad);
         entidad.setClienteId(1);
-        when(clienteRepository.save(any(Cliente.class))).thenReturn(entidad);
+        when(clienteRepository.save(captor.capture())).thenReturn(entidad);
         
         //when
         clienteService.registrarCliente(dto);
         
         //then
         assertThat(dto.getClienteId()).isEqualTo(1);
-        verify(clienteRepository).save(any(Cliente.class));        
+        assertEquals(captor.getValue().getGenderEnum().name(), GeneroEnum.MASCULINO.name());
+        verify(clienteRepository).save(any(Cliente.class));       
     }
     
     @DisplayName("Obtener Cliente Por Id con SpringBootTest")
@@ -73,7 +80,7 @@ public class SpringClienteServiceTest {
         entidad.setDireccion("Quito SN");
         entidad.setEdad(62);
         entidad.setEstado(true);
-        entidad.setGenero("Masculino");
+        entidad.setGenderEnum(GeneroEnum.MASCULINO);
         entidad.setIdentificacion("111");
         entidad.setNombre("Isaac Asimov");
         entidad.setTelefono("02555");

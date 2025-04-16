@@ -14,5 +14,5 @@ import java.util.List;
  * @author Edison Teran
  */
 public interface IReporteSevice {
-    List<Registro> construirReporte(Integer clienteId, Date fechaInicio, Date fechaFin);
+    List<Registro> construirReporte(Date fechaInicio, Date fechaFin, Integer clienteId);
 }

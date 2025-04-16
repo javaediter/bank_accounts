@@ -14,6 +14,7 @@
                 <Env.DB_PORT>3306</Env.DB_PORT>
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+                <Env.DB_NAME>cuentas_bancarias</Env.DB_NAME>
                 <Env.API_CLIENTES>http://localhost:8081/api/clientes</Env.API_CLIENTES>
                 
                 
@@ -35,6 +36,7 @@
                 <Env.DB_PORT>3306</Env.DB_PORT>
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+                <Env.DB_NAME>cuentas_bancarias</Env.DB_NAME>
                 <Env.API_CLIENTES>http://localhost:8081/api/clientes</Env.API_CLIENTES>
                 
                 
@@ -57,6 +59,7 @@
                 <Env.DB_PORT>3306</Env.DB_PORT>
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+                <Env.DB_NAME>cuentas_bancarias</Env.DB_NAME>
                 <Env.API_CLIENTES>http://localhost:8081/api/clientes</Env.API_CLIENTES>
                 
                 

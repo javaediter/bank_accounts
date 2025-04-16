@@ -10,8 +10,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.query.Procedure;
 
 /**
  *
@@ -20,7 +19,14 @@ import org.springframework.data.repository.query.Param;
 public interface MovimientoRepository extends JpaRepository<Movimiento, Integer>{
     List<Movimiento> findAllByCuentaClienteIdAndFechaBetween(Integer clienteId, Date fechaStart, Date fechaEnd);
     List<Movimiento> findAllByCuentaCuentaId(Integer cuentaId, Sort sort);
+ 
+    //En caso de que cambie el nombre del SP, no hay refactorizar el codigo
+    //Los parametros deben estar en el mismo orden que en el SP
+    //Internamente hace la llamada CALL
+    @Procedure("sp_reporte")
+    List<Object> construirReporte(java.sql.Date fechaInicio, java.sql.Date fechaFin, Integer clienteId);
     
-    @Query(value = "CALL sp_reporte(:fechaInicio, :fechaFin, :clienteId);", nativeQuery = true)
-    List<Object> construirReporte(@Param("clienteId") Integer clienteId, @Param("fechaInicio") java.sql.Date fechaInicio, @Param("fechaFin") java.sql.Date fechaFin);
+    //El nombre del método es el mismo que el SP, no es necesario agregarlo en @Procedure
+    //@Procedure
+    //List<Object> sp_reporte(LocalDate fechaInicio, LocalDate fechaFin, Integer clienteId);
 }

@@ -42,15 +42,16 @@ public class ReporteServiceJob implements IReporteServiceJob{
         log.info("enviarReportesClientes");
         Calendar calendar = Calendar.getInstance();
         Date fin = new Date(calendar.getTime().getTime());
-        calendar.add(Calendar.MONTH, -1);
+        
+        calendar.add(Calendar.MONTH, -1);        
         Date inicio = calendar.getTime();
         
         java.sql.Date fechaInicio = new java.sql.Date(inicio.getTime());
-        java.sql.Date fechaFin = new java.sql.Date(fin.getTime());
-        
+        java.sql.Date fechaFin = new java.sql.Date(fin.getTime());   
+                
         List<Integer> clientesIds = cuentaService.obtenerClientesIds();
         clientesIds.forEach(id -> {
-            List<Registro> registros = reporteSevice.construirReporte(id, fechaInicio, fechaFin);
+            List<Registro> registros = reporteSevice.construirReporte(fechaInicio, fechaFin, id);
             if(!registros.isEmpty()){
                 Reporte reporte = new Reporte(id, registros);
                 reportePublisher.publicarReporte(reporte);

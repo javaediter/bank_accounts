@@ -11,11 +11,13 @@ import ec.editer.mscuentas.service.IReporteSevice;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -28,12 +30,13 @@ public class ReporteService implements IReporteSevice{
     @Autowired
     private MovimientoRepository movimientoRepository;
 
+    @Transactional // Se agrega porque se llama a un SP
     @Override
-    public List<Registro> construirReporte(Integer clienteId, Date fechaInicio, Date fechaFin) {
+    public List<Registro> construirReporte(Date fechaInicio, Date fechaFin, Integer clienteId) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         log.info(String.format("...construirReporte clienteId = %d, fechaInicio = %s, fechaFin = %s", clienteId, format.format(fechaInicio), format.format(fechaFin)));
         List<Registro> reporte = new ArrayList<>();
-        movimientoRepository.construirReporte(clienteId, fechaInicio, fechaFin).forEach(x -> {
+        movimientoRepository.construirReporte(fechaInicio, fechaFin, clienteId).forEach(x -> {
             Object[] array = (Object[])x;
             Registro rep = new Registro();
             rep.setFecha(array[0].toString());

@@ -34,7 +34,7 @@ public class ReportePublisher implements IReportePublisher{
     @Override
     public void publicarReporte(Reporte reporte) {
         log.info(">------------------> publicarReporte <------------------<");
-        String routingKey = "reportes.movimientos.cliente.id";
+        final String routingKey = "reportes.movimientos.cliente.id";
         rabbitTemplate.convertAndSend(topicExchangeName, routingKey, reporte);
     }
 }

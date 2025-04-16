@@ -14,6 +14,7 @@
                 <Env.DB_PORT>3306</Env.DB_PORT>
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+                <Env.DB_NAME>cuentas_bancarias</Env.DB_NAME>
                 <Env.API_REPORTES>http://localhost:8083/api/reporte</Env.API_REPORTES>
             </properties>
         </action>
@@ -33,6 +34,7 @@
                 <Env.DB_PORT>3306</Env.DB_PORT>
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+                <Env.DB_NAME>cuentas_bancarias</Env.DB_NAME>
                 <Env.API_REPORTES>http://localhost:8083/api/reporte</Env.API_REPORTES>
             </properties>
         </action>
@@ -53,6 +55,26 @@
                 <Env.DB_PORT>3306</Env.DB_PORT>
                 <Env.DB_USER>root</Env.DB_USER>
                 <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+                <Env.DB_NAME>cuentas_bancarias</Env.DB_NAME>
+                <Env.API_REPORTES>http://localhost:8083/api/reporte</Env.API_REPORTES>
+            </properties>
+        </action>
+        <action>
+            <actionName>test.single</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <test>${packageClassName}</test>
+                <Env.DB_HOSTNAME>localhost</Env.DB_HOSTNAME>
+                <Env.DB_PORT>3306</Env.DB_PORT>
+                <Env.DB_USER>root</Env.DB_USER>
+                <Env.DB_PASSWORD>admin</Env.DB_PASSWORD>
+                <Env.DB_NAME>cuentas_bancarias</Env.DB_NAME>
                 <Env.API_REPORTES>http://localhost:8083/api/reporte</Env.API_REPORTES>
             </properties>
         </action>

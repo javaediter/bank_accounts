@@ -5,6 +5,10 @@
  */
 package ec.editer.msclientes.model;
 
+import ec.editer.msclientes.enums.GeneroEnum;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,7 +22,11 @@ import lombok.EqualsAndHashCode;
 @Data
 public abstract class Persona {
     protected String nombre;
-    protected String genero;
+    
+    @Column(name = "genero")
+    @Enumerated(EnumType.STRING)
+    protected GeneroEnum genderEnum;
+    
     protected Integer edad;
     protected String identificacion;
     protected String direccion;

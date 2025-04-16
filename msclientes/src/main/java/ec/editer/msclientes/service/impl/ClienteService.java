@@ -6,6 +6,7 @@
 package ec.editer.msclientes.service.impl;
 
 import ec.editer.msclientes.dtos.ClienteDTO;
+import ec.editer.msclientes.enums.GeneroEnum;
 import ec.editer.msclientes.model.Cliente;
 import ec.editer.msclientes.repository.ClienteRepository;
 import ec.editer.msclientes.service.IClienteService;
@@ -37,7 +38,7 @@ public class ClienteService implements IClienteService {
                     .clienteId(x.getClienteId())
                     .direccion(x.getDireccion())
                     .edad(x.getEdad())
-                    .genero(x.getGenero())
+                    .genero(x.getGenderEnum().name())
                     .identificacion(x.getIdentificacion())
                     .nombre(x.getNombre())
                     .contrasenia(x.getContrasenia())
@@ -60,7 +61,7 @@ public class ClienteService implements IClienteService {
                     .clienteId(x.getClienteId())
                     .direccion(x.getDireccion())
                     .edad(x.getEdad())
-                    .genero(x.getGenero())
+                    .genero(x.getGenderEnum().name())
                     .identificacion(x.getIdentificacion())
                     .nombre(x.getNombre())
                     .contrasenia(x.getContrasenia())
@@ -78,6 +79,7 @@ public class ClienteService implements IClienteService {
     public ClienteDTO registrarCliente(ClienteDTO clienteDTO) throws DataIntegrityViolationException {
         Cliente cliente = new Cliente();
         BeanUtils.copyProperties(clienteDTO, cliente);
+        cliente.setGenderEnum(GeneroEnum.valueOf(clienteDTO.getGenero().toUpperCase()));
         cliente.setClienteId(null);
         cliente = clienteRepository.save(cliente);
         clienteDTO.setClienteId(cliente.getClienteId());
@@ -94,6 +96,7 @@ public class ClienteService implements IClienteService {
             cliente.setEdad(clienteDTO.getEdad());
             cliente.setEstado(clienteDTO.isEstado());
             cliente.setTelefono(clienteDTO.getTelefono());
+            cliente.setGenderEnum(GeneroEnum.valueOf(clienteDTO.getGenero().toUpperCase()));
             clienteRepository.save(cliente);
             ClienteDTO dto = new ClienteDTO();
             BeanUtils.copyProperties(cliente, dto);

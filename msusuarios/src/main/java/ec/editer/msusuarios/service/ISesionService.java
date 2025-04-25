@@ -5,7 +5,6 @@
  */
 package ec.editer.msusuarios.service;
 
-import ec.editer.msusuarios.dto.IngresoDTO;
 import ec.editer.msusuarios.dto.TokenDTO;
 import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,5 +14,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author Edison Teran
  */
 public interface ISesionService extends UserDetailsService{
-    public Optional<TokenDTO> autenticarUsuario(IngresoDTO ingresoDTO);
+    public Optional<TokenDTO> autenticarUsuario(String username, String newPassword);
 }

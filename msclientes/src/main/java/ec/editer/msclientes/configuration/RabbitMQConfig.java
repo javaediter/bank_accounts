@@ -34,7 +34,7 @@ import org.springframework.messaging.MessageChannel;
  * @author Edison Teran
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class RabbitMQConfig {
     
     @Value("${amqp.token.topic.name}") 

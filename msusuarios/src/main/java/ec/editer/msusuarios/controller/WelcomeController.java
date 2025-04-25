@@ -8,7 +8,6 @@ package ec.editer.msusuarios.controller;
 import java.util.Collections;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,13 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/home")
-public class HomeController {
-     
-    @PreAuthorize("hasRole('USER')")
+@RequestMapping("/welcome")
+public class WelcomeController {
+    
     @GetMapping
-    public Map<String, String> home(){
-        log.info("-----> home");
-        return Collections.singletonMap("msg", "PAGE HOME");
+    public Map<String, String> welcome(){
+        log.info("-----> welcome");
+        return Collections.singletonMap("msg", "PAGE WELCOME");
     }
 }

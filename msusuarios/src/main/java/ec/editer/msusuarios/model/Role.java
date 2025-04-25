@@ -6,12 +6,11 @@
 package ec.editer.msusuarios.model;
 
 import ec.editer.msusuarios.enums.RolEnum;
-import jakarta.persistence.Access;
-import jakarta.persistence.AccessType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +26,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Access(AccessType.FIELD)// JPA accede a los valores desde las variables en vez de los getters/setters
+//@Access(AccessType.FIELD)// JPA accede a los valores desde las variables en vez de los getters/setters
 @Table(name = "roles", uniqueConstraints = @UniqueConstraint(columnNames = {"nombre"}))
 public class Role {
     
@@ -40,6 +39,6 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private RolEnum rolEnum;
     
-    @OneToMany(mappedBy = "rol")
+    @OneToMany(mappedBy = "rol", fetch = FetchType.LAZY)
     private List<UserRole> roles;
 }

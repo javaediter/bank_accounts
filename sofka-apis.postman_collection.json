@@ -320,6 +320,155 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "permisos",
+					"item": [
+						{
+							"name": "crear",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": {
+										"password": "guest",
+										"username": "guest"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"ROLE_USER\",\r\n    \"userId\": \"5\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "localhost:8084/roles/save"
+							},
+							"response": []
+						},
+						{
+							"name": "borrar",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": {
+										"password": "guest",
+										"username": "guest"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "localhost:8084/roles/delete/3"
+							},
+							"response": []
+						},
+						{
+							"name": "por_usuario",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": {
+										"password": "guest",
+										"username": "guest"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "localhost:8084/roles/user/4"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "todos",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "guest",
+								"username": "guest"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8084/users"
+					},
+					"response": []
+				},
+				{
+					"name": "crear",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "guest",
+								"username": "guest"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"username\": \"tiktoker\",\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8084/users/save"
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "guest",
+								"username": "guest"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": 4,\r\n    \"username\": \"extra\",\r\n    \"active\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8084/users/update"
+					},
+					"response": []
+				},
+				{
+					"name": "buscar",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "guest",
+								"username": "guest"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8084/users/find/4"
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

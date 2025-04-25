@@ -30,7 +30,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath ${packageClassName}</exec.args>
+                <exec.args>-classpath %classpath ec.editer.mscuentas.MscuentasApplication</exec.args>
                 <exec.executable>java</exec.executable>
                 <Env.DB_HOSTNAME>localhost</Env.DB_HOSTNAME>
                 <Env.DB_PORT>3306</Env.DB_PORT>

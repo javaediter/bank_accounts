@@ -5,7 +5,8 @@
  */
 package ec.editer.msusuarios.repository;
 
-import ec.editer.msusuarios.model.User;
+import ec.editer.msusuarios.enums.RolEnum;
+import ec.editer.msusuarios.model.Role;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,7 +14,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Edison Teran
  */
-public interface UsuarioRepository extends CrudRepository<User, Integer>{
-    public User findByUsernameAndPassword(String username, String password);
-    public Optional<User> findByUsername(String username);
+public interface RoleRepository extends CrudRepository<Role, Integer>{
+    Optional<Role> findByRolEnum(RolEnum rolEnum);
 }

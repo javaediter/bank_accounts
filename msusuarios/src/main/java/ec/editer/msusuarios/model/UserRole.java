@@ -5,8 +5,6 @@
  */
 package ec.editer.msusuarios.model;
 
-import jakarta.persistence.Access;
-import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +20,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Access(AccessType.FIELD)// JPA accede a los valores desde las variables en vez de los getters/setters
+//@Access(AccessType.FIELD)// JPA accede a los valores desde las variables en vez de los getters/setters
 @Table(name = "usuarios_roles")
 public class UserRole {
     

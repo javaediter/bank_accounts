@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Edison Teran
  */
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class RabbitMQConfig {
     
     @Bean

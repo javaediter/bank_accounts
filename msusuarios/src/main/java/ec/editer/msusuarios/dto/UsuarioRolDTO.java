@@ -5,6 +5,7 @@
  */
 package ec.editer.msusuarios.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 /**
@@ -14,6 +15,7 @@ import lombok.Data;
 @Data
 public class UsuarioRolDTO {
     private Integer id;
+    @JsonIgnore
     private UsuarioDTO usuario;
     private RolDTO rol;
 }

@@ -5,6 +5,8 @@
  */
 package ec.editer.msusuarios.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ec.editer.msusuarios.enums.RolEnum;
 import java.util.List;
 import lombok.Data;
@@ -16,6 +18,8 @@ import lombok.Data;
 @Data
 public class RolDTO {
     private Integer id;
+    @JsonProperty(value = "role")
     private RolEnum rolEnum;
+    @JsonIgnore
     private List<UsuarioRolDTO> roles;
 }

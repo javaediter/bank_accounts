@@ -47,7 +47,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath ${packageClassName}</exec.args>
+                <exec.args>-classpath %classpath ec.editer.msusuarios.MsusuariosApplication</exec.args>
                 <exec.executable>java</exec.executable>
                 <Env.MONGO_URI>mongodb://localhost:27017/banca-sesiones</Env.MONGO_URI>
                 <Env.DB_HOSTNAME>localhost</Env.DB_HOSTNAME>

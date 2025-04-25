@@ -33,7 +33,7 @@ import org.springframework.integration.dsl.Transformers;
  * @author Edison Teran
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
+@Configuration
 public class MSReportesConfiguration {
     
     @Value("${amqp.banca.queue.name}")

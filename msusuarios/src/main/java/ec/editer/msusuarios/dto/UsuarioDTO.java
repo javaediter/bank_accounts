@@ -5,7 +5,7 @@
  */
 package ec.editer.msusuarios.dto;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 /**
@@ -16,7 +16,7 @@ import lombok.Data;
 public class UsuarioDTO {
     private Integer id;
     private String username;
+    @JsonIgnore
     private String password;
     private boolean active;
-    private List<UsuarioRolDTO> roles;
 }
